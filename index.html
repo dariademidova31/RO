@@ -1,0 +1,537 @@
+<html lang="ru">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.5" />
+    <title>Представительство · структура расходов</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,300;14..32,400;14..32,600;14..32,700;14..32,800&display=swap" rel="stylesheet" />
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            background: #f4f8fe;
+            color: #1a2636;
+            padding: 2rem 1.5rem;
+            line-height: 1.5;
+            display: flex;
+            justify-content: center;
+        }
+
+        .container {
+            max-width: 1200px;
+            width: 100%;
+        }
+
+        /* ---------- 1. ГРАДИЕНТНЫЙ ЗАГОЛОВОК (прозрачность) ---------- */
+        .hero {
+            margin-bottom: 3rem;
+            padding: 0 0 1.5rem 0;
+            border-bottom: 2px solid rgba(0, 80, 200, 0.08);
+        }
+
+        .gradient-title {
+            font-size: clamp(2.2rem, 7vw, 4rem);
+            font-weight: 800;
+            letter-spacing: -0.02em;
+            background: linear-gradient(145deg, #0c2d5e 0%, #1f6eb0 45%, #5f92cf 80%, #9bbcec 100%);
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+            text-shadow: 0 8px 24px rgba(18, 67, 128, 0.10);
+            margin-bottom: 0.4rem;
+            line-height: 1.1;
+        }
+
+        .hero-sub {
+            font-size: 1.1rem;
+            font-weight: 400;
+            color: #2e4a6a;
+            max-width: 780px;
+            border-left: 4px solid #2a7de1;
+            padding-left: 1.2rem;
+            margin-top: 0.4rem;
+            background: linear-gradient(to right, #eaf1fa, transparent);
+            padding: 0.7rem 1.2rem;
+            border-radius: 0 14px 14px 0;
+        }
+
+        .hero-sub strong {
+            color: #0b2b5e;
+        }
+
+        /* ---------- 2. КАРТОЧКИ (расходы, этапы) с анимацией ---------- */
+        .section-title {
+            font-size: 1.7rem;
+            font-weight: 700;
+            color: #0a2647;
+            margin: 2.6rem 0 1.4rem 0;
+            display: flex;
+            align-items: center;
+            gap: 0.6rem;
+        }
+        .section-title span {
+            background: #2a7de1;
+            color: white;
+            font-size: 0.85rem;
+            padding: 0.2rem 1rem;
+            border-radius: 40px;
+            font-weight: 600;
+            letter-spacing: 0.3px;
+        }
+
+        .cards-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(230px, 1fr));
+            gap: 1.6rem;
+            margin: 1.6rem 0 2rem;
+        }
+
+        .expense-card {
+            background: white;
+            padding: 1.6rem 1.2rem 1.6rem 1.5rem;
+            border-radius: 24px;
+            box-shadow: 0 6px 20px rgba(0, 20, 50, 0.04), 0 1px 4px rgba(0,0,0,0.02);
+            transition: all 0.3s cubic-bezier(0.2, 0, 0, 1);
+            border: 1px solid rgba(42, 125, 225, 0.06);
+            position: relative;
+        }
+
+        .expense-card:hover {
+            transform: translateY(-8px) scale(1.01);
+            box-shadow: 0 18px 40px rgba(26, 78, 158, 0.10), 0 6px 14px rgba(0, 30, 70, 0.06);
+            border-color: #b0cdf0;
+            background: #ffffff;
+        }
+
+        .expense-card .card-icon {
+            font-size: 2rem;
+            margin-bottom: 0.3rem;
+        }
+
+        .expense-card h3 {
+            font-size: 1.1rem;
+            font-weight: 700;
+            color: #0a2647;
+            margin-bottom: 0.2rem;
+        }
+
+        .expense-card .amount {
+            font-size: 1.6rem;
+            font-weight: 700;
+            color: #1f6eb0;
+            letter-spacing: -0.01em;
+            margin: 0.2rem 0 0.1rem;
+        }
+
+        .expense-card .amount small {
+            font-size: 0.9rem;
+            font-weight: 500;
+            color: #4a6a8a;
+            margin-left: 0.2rem;
+        }
+
+        .expense-card .desc {
+            color: #3d5068;
+            font-size: 0.9rem;
+            margin-top: 0.2rem;
+        }
+
+        .expense-card .tag-badge {
+            margin-top: 0.6rem;
+            background: #e3edfb;
+            color: #1455b0;
+            font-weight: 600;
+            font-size: 0.65rem;
+            padding: 0.2rem 0.9rem;
+            border-radius: 40px;
+            display: inline-block;
+            letter-spacing: 0.4px;
+            text-transform: uppercase;
+        }
+
+        .expense-card.highlight {
+            background: linear-gradient(135deg, #f0f7ff, #ffffff);
+            border-left: 4px solid #2a7de1;
+        }
+
+        /* ---------- 3. КЕЙС / БЛОК "ОТКРЫТИЕ" (выделенный) ---------- */
+        .case-block {
+            background: #ffffff;
+            border-radius: 28px;
+            padding: 1.8rem 2rem;
+            margin: 1.8rem 0 2.2rem;
+            border-left: 8px solid #2a7de1;
+            box-shadow: 0 8px 24px rgba(0, 30, 70, 0.03);
+            display: flex;
+            flex-wrap: wrap;
+            gap: 1.2rem 2.5rem;
+            align-items: flex-start;
+        }
+
+        .case-item {
+            flex: 1 1 180px;
+        }
+
+        .case-item strong {
+            display: block;
+            font-size: 0.7rem;
+            text-transform: uppercase;
+            letter-spacing: 0.6px;
+            color: #2a7de1;
+            font-weight: 700;
+            margin-bottom: 0.2rem;
+        }
+
+        .case-item .title {
+            font-weight: 700;
+            font-size: 1.1rem;
+            color: #0b2b5e;
+        }
+
+        .case-item .desc {
+            font-size: 0.9rem;
+            color: #2f4057;
+            margin-top: 0.1rem;
+        }
+
+        .case-badge {
+            background: #eef4fc;
+            padding: 0.2rem 1rem;
+            border-radius: 60px;
+            font-size: 0.7rem;
+            font-weight: 600;
+            color: #1a5bb5;
+            display: inline-block;
+        }
+
+        /* ---------- 4. СЕТКА ТЕГОВ (инструменты / статьи) ---------- */
+        .tools-grid {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.7rem 1rem;
+            margin: 1.2rem 0 2.5rem;
+            padding: 0.6rem 0;
+        }
+
+        .tag {
+            background: white;
+            padding: 0.5rem 1.4rem;
+            border-radius: 60px;
+            font-weight: 500;
+            font-size: 0.85rem;
+            color: #1a2e4a;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.02);
+            border: 1px solid #d7e3f0;
+            transition: all 0.2s;
+        }
+
+        .tag:hover {
+            background: #1f6eb0;
+            color: white;
+            border-color: #1f6eb0;
+            transform: scale(1.04);
+            box-shadow: 0 6px 14px rgba(26, 78, 158, 0.15);
+        }
+
+        .tag.accent {
+            background: #1f6eb0;
+            color: white;
+            border-color: #1f6eb0;
+        }
+
+        /* ---------- 5. БЛОК "ОПЕРАЦИОННЫЕ РАСХОДЫ" (иерархия) ---------- */
+        .expense-group {
+            background: #f0f6fe;
+            border-radius: 28px;
+            padding: 1.8rem 2rem;
+            margin: 2rem 0 1.8rem;
+            border: 1px solid rgba(42, 125, 225, 0.10);
+        }
+
+        .expense-group .group-title {
+            font-weight: 700;
+            font-size: 1.3rem;
+            color: #0a2647;
+            display: flex;
+            align-items: center;
+            gap: 0.8rem;
+            margin-bottom: 1.2rem;
+        }
+
+        .expense-group .group-title .badge {
+            background: #2a7de1;
+            color: white;
+            padding: 0.1rem 1rem;
+            border-radius: 60px;
+            font-size: 0.7rem;
+            font-weight: 600;
+        }
+
+        .expense-row {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.8rem 2rem;
+            padding: 0.5rem 0;
+            border-bottom: 1px solid rgba(42, 125, 225, 0.06);
+        }
+
+        .expense-row:last-child {
+            border-bottom: none;
+        }
+
+        .expense-label {
+            min-width: 180px;
+            font-weight: 600;
+            color: #1a3d66;
+            font-size: 0.95rem;
+        }
+
+        .expense-value {
+            font-weight: 600;
+            color: #0b2b5e;
+            font-size: 0.95rem;
+            background: rgba(255,255,255,0.5);
+            padding: 0.1rem 1rem;
+            border-radius: 40px;
+            display: inline-block;
+        }
+
+        .expense-note {
+            color: #4a6a8a;
+            font-size: 0.85rem;
+            margin-left: 0.3rem;
+            font-weight: 400;
+        }
+
+        .total-block {
+            margin-top: 1.5rem;
+            background: #0b2b5e;
+            color: white;
+            padding: 1.2rem 2rem;
+            border-radius: 60px;
+            display: inline-flex;
+            align-items: center;
+            gap: 1.2rem;
+            flex-wrap: wrap;
+            font-weight: 700;
+            font-size: 1.4rem;
+            letter-spacing: 0.3px;
+            box-shadow: 0 8px 20px rgba(11, 43, 94, 0.15);
+        }
+
+        .total-block small {
+            font-weight: 400;
+            font-size: 1rem;
+            opacity: 0.8;
+        }
+
+        /* ---------- 6. АДАПТИВ ---------- */
+        @media (max-width: 700px) {
+            body { padding: 1rem 0.8rem; }
+            .hero { margin-bottom: 2rem; }
+            .gradient-title { font-size: 2rem; }
+            .hero-sub { font-size: 0.95rem; padding: 0.5rem 1rem; }
+            .cards-grid { grid-template-columns: 1fr; }
+            .case-block { flex-direction: column; padding: 1.2rem; }
+            .expense-group { padding: 1.2rem; }
+            .expense-row { flex-direction: column; gap: 0.2rem; padding: 0.7rem 0; }
+            .expense-label { min-width: auto; }
+            .total-block { font-size: 1.1rem; padding: 0.9rem 1.5rem; }
+            .tools-grid { gap: 0.5rem; }
+            .tag { font-size: 0.75rem; padding: 0.3rem 0.9rem; }
+        }
+
+        @media (min-width: 701px) and (max-width: 1024px) {
+            .cards-grid { grid-template-columns: repeat(2, 1fr); }
+        }
+
+        .accent-border {
+            border-bottom: 3px solid #2a7de1;
+            padding-bottom: 0.2rem;
+            display: inline-block;
+        }
+        .mt-1 { margin-top: 0.5rem; }
+        .text-muted { color: #4d6a8a; font-weight: 400; }
+    </style>
+</head>
+<body>
+<div class="container">
+
+    <!-- 1. ГРАДИЕНТНЫЙ ЗАГОЛОВОК -->
+    <header class="hero">
+        <h1 class="gradient-title">Представительство <br>структура &amp; бюджет</h1>
+        <div class="hero-sub">
+            <strong>Общий порядок · открытие и операционные расходы</strong><br>
+            Москва · 2026 · Ориентировочные затраты
+        </div>
+    </header>
+
+    <!-- 2. КАРТОЧКИ (этапы открытия + основные цифры) -->
+    <h2 class="section-title">📋 Этап открытия <span>одноразово</span></h2>
+    <div class="cards-grid">
+        <div class="expense-card">
+            <div class="card-icon">📄</div>
+            <h3>Документы &amp; регистрация</h3>
+            <div class="amount">$3 000 – $5 000</div>
+            <div class="desc">Решение, положение, доверенность, нотариальный перевод, юр. адрес, госпошлина, ФНС.</div>
+            <span class="tag-badge">услуги консалтинга</span>
+        </div>
+        <div class="expense-card highlight">
+            <div class="card-icon">🏢</div>
+            <h3>Юридический адрес</h3>
+            <div class="amount">включено</div>
+            <div class="desc">Предоставляется в рамках пакета услуг.</div>
+            <span class="tag-badge">обязательно</span>
+        </div>
+        <div class="expense-card">
+            <div class="card-icon">⚖️</div>
+            <h3>Госпошлина</h3>
+            <div class="amount">~ $150</div>
+            <div class="desc">Оплачивается при подаче документов.</div>
+            <span class="tag-badge">разовый платёж</span>
+        </div>
+    </div>
+
+    <!-- 3. ВЫДЕЛЕННЫЙ БЛОК "КЕЙС" — общая процедура -->
+    <div class="case-block">
+        <div class="case-item">
+            <strong>🔹 процедура</strong>
+            <div class="title">Открытие представительства</div>
+            <div class="desc">Подготовка документов → юр. адрес → госпошлина → регистрация в ФНС.</div>
+            <span class="case-badge">обычно через консалтинг</span>
+        </div>
+        <div class="case-item">
+            <strong>🔹 средняя стоимость</strong>
+            <div class="title">$3 000 – $5 000</div>
+            <div class="desc">Оплачивается единоразово.</div>
+        </div>
+    </div>
+
+    <!-- 4. СЕТКА ТЕГОВ (статьи расходов) -->
+    <h2 class="section-title">🏷️ Категории затрат</h2>
+    <div class="tools-grid">
+        <span class="tag">Аренда</span>
+        <span class="tag accent">ФОТ</span>
+        <span class="tag">Налоги 30%</span>
+        <span class="tag">Соцпакет</span>
+        <span class="tag">Юридические</span>
+        <span class="tag">Командировки</span>
+        <span class="tag">Представительские</span>
+        <span class="tag">Банк</span>
+        <span class="tag">Транспорт</span>
+        <span class="tag accent">Офисные услуги</span>
+    </div>
+
+    <!-- 5. ОПЕРАЦИОННЫЕ РАСХОДЫ (с иерархией) -->
+    <div class="expense-group">
+        <div class="group-title">
+            <span>📊 Операционные расходы</span>
+            <span class="badge">ежемесячно</span>
+        </div>
+
+        <!-- 1. Административные -->
+        <div style="font-weight: 700; color: #0b2b5e; margin: 1rem 0 0.4rem; font-size: 1.05rem;">1. Административные &amp; офисные</div>
+        <div class="expense-row">
+            <span class="expense-label">Аренда (20 м²) + коммунальные</span>
+            <span class="expense-value">$2 000</span>
+            <span class="expense-note">электричество, вода, интернет</span>
+        </div>
+        <div class="expense-row">
+            <span class="expense-label">Связь (моб., город., интернет)</span>
+            <span class="expense-value">$1 000</span>
+        </div>
+        <div class="expense-row">
+            <span class="expense-label">Офисные нужды</span>
+            <span class="expense-value">$500</span>
+            <span class="expense-note">канцтовары, вода, расходники</span>
+        </div>
+        <div class="expense-row">
+            <span class="expense-label">Юридические услуги</span>
+            <span class="expense-value">$1 000</span>
+        </div>
+
+        <!-- 2. Персонал -->
+        <div style="font-weight: 700; color: #0b2b5e; margin: 1.4rem 0 0.4rem; font-size: 1.05rem;">2. Персонал</div>
+        <div class="expense-row">
+            <span class="expense-label">Руководитель представительства</span>
+            <span class="expense-value">$9 000</span>
+        </div>
+        <div class="expense-row">
+            <span class="expense-label">Помощник руководителя (вкл. бухгалтерию)</span>
+            <span class="expense-value">$3 500</span>
+        </div>
+        <div class="expense-row">
+            <span class="expense-label">Налоги и взносы (30% + травматизм)</span>
+            <span class="expense-value">$3 500</span>
+            <span class="expense-note">~30% от ФОТ</span>
+        </div>
+        <div class="expense-row">
+            <span class="expense-label">Соцпакет (ДМС, питание, проезд, отпуск)</span>
+            <span class="expense-value">$1 500</span>
+        </div>
+        <div class="expense-row">
+            <span class="expense-label">Офисные услуги (клининг, охрана, кофе)</span>
+            <span class="expense-value">$500</span>
+        </div>
+
+        <!-- 3. Представительские -->
+        <div style="font-weight: 700; color: #0b2b5e; margin: 1.4rem 0 0.4rem; font-size: 1.05rem;">3. Представительские <span style="font-weight:400; font-size:0.8rem; color:#4a6a8a;">(по факту мероприятий)</span></div>
+        <div class="expense-row">
+            <span class="expense-label">Официальные приёмы (банкеты, фуршеты)</span>
+            <span class="expense-value">$3 000</span>
+            <span class="expense-note">периодически, не входит в общий итог</span>
+        </div>
+        <div class="expense-row">
+            <span class="expense-label">Транспорт для делегаций</span>
+            <span class="expense-value">по факту</span>
+            <span class="expense-note">такси / аренда авто</span>
+        </div>
+
+        <!-- 4. Операционные и командировки -->
+        <div style="font-weight: 700; color: #0b2b5e; margin: 1.4rem 0 0.4rem; font-size: 1.05rem;">4. Операционные &amp; командировки</div>
+        <div class="expense-row">
+            <span class="expense-label">Транспорт / такси / каршеринг</span>
+            <span class="expense-value">$1 000</span>
+            <span class="expense-note">парковка, поездки</span>
+        </div>
+        <div class="expense-row">
+            <span class="expense-label">Командировки (билеты, гостиницы, суточные)</span>
+            <span class="expense-value">$5 000</span>
+            <span class="expense-note">зависит от направления</span>
+        </div>
+        <div class="expense-row">
+            <span class="expense-label">Банковские услуги (РКО, переводы)</span>
+            <span class="expense-value">$300</span>
+        </div>
+        <div class="expense-row" style="border-bottom: 2px solid #b0cdf0; padding-bottom: 0.8rem;">
+            <span class="expense-label">🚗 Лизинг авто (опционально)</span>
+            <span class="expense-value">$2 500</span>
+            <span class="expense-note">страховка, ТО, топливо. Аванс $7 000 — обсуждается отдельно</span>
+        </div>
+
+        <!-- ИТОГО -->
+        <div class="total-block">
+            <span>Итого содержание представительства</span>
+            <span>$29 000 <small>/ месяц</small></span>
+        </div>
+        <div style="margin-top: 0.8rem; font-size: 0.9rem; color: #2f5a7a; background: rgba(255,255,255,0.6); padding: 0.3rem 1.2rem; border-radius: 60px; display: inline-block;">
+            * без учёта представительских расходов и лизинга
+        </div>
+    </div>
+
+    <!-- дополнительный акцент -->
+    <div style="margin: 2rem 0 0.5rem; display: flex; justify-content: flex-start; border-top: 1px solid #d7e3f0; padding-top: 1.2rem; font-size: 0.9rem; color: #3a5b7a; flex-wrap: wrap; gap: 1.5rem;">
+        <span>📌 Расчёты на 2026 год</span>
+        <span style="background: #2a7de1; width: 8px; height: 8px; border-radius: 20px; display: inline-block;"></span>
+        <span>Москва · представительство индийской компании</span>
+    </div>
+
+</div>
+</body>
+</html>
